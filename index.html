@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pregunta con Movimiento</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            text-align: center;
+            padding: 20px;
+            margin: 0;
+            overflow: hidden;
+        }
+        .container {
+            background-color: #f8f3f3;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+            position: relative;
+            max-width: 100%;
+            width: 90%;
+            box-sizing: border-box;
+            margin: auto;
+        }
+        h1 {
+            color: #2c3e50;
+            font-size: 24px;
+        }
+        img {
+            width: 100%;
+            max-width: 200px;
+            height: auto;
+            margin: 20px 0;
+            border-radius: 10px; /* Bordes redondeados */
+        }
+        .options {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            position: relative;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        .option {
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            background-color: #3498db;
+            color: white;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        .option:hover {
+            background-color: #2980b9;
+        }
+        .option.no {
+            background-color: #e74c3c;
+            position: absolute;
+            transition: all 0.3s ease;
+        }
+        .option.no:hover {
+            background-color: #c0392b;
+        }
+
+        /* Estilos responsivos */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 18px;
+            }
+            .option {
+                font-size: 16px;
+                padding: 8px 12px;
+            }
+            img {
+                max-width: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>¿Me mandas una foto?</h1>
+        <!-- Imagen del hámster cargada -->
+        <img src="https://i.postimg.cc/d1H0Xvds/hamster.jpg" alt="Hámster adorable" />
+        <div class="options">
+            <div class="option yes" onclick="showYes()">Sí</div>
+            <div class="option no" onclick="moveNo()">No</div>
+        </div>
+    </div>
+
+    <script>
+        function moveNo() {
+            const noOption = document.querySelector('.option.no');
+            const container = document.querySelector('.container');
+
+            // Obtener dimensiones del contenedor y del botón
+            const containerRect = container.getBoundingClientRect();
+            const noRect = noOption.getBoundingClientRect();
+
+            // Calcular posiciones aleatorias dentro del contenedor
+            const maxX = containerRect.width - noRect.width;
+            const maxY = containerRect.height - noRect.height;
+
+            const randomX = Math.random() * maxX;
+            const randomY = Math.random() * maxY;
+
+            // Aplicar nuevas posiciones con límites
+            noOption.style.transform = `translate(${randomX}px, ${randomY}px)`;
+        }
+
+        function showYes() {
+            // Crear un modal para mostrar el mensaje
+            const modal = document.createElement('div');
+            modal.style.position = 'fixed';
+            modal.style.top = '0';
+            modal.style.left = '0';
+            modal.style.width = '100%';
+            modal.style.height = '100%';
+            modal.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+            modal.style.color = 'white';
+            modal.style.display = 'flex';
+            modal.style.alignItems = 'center';
+            modal.style.justifyContent = 'center';
+            modal.style.fontSize = '24px';
+            modal.style.padding = '20px';
+            modal.style.textAlign = 'center';
+            modal.innerHTML = '<p>¡Viste que no era tan difícil! ❤️</p>';
+            modal.onclick = () => document.body.removeChild(modal);
+            document.body.appendChild(modal);
+        }
+    </script>
+
+</body>
+</html>
+
+
